@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MINHA KOALINHA ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3b0764 0%, #1e1b4b 100%); 
+            color: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Controle de Áudio */
+        .audio-player {
+            margin-top: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #4a4a4a;
+        }
+
+        .audio-btn {
+            background-color: #d63031;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+
+        .audio-btn:hover {
+            background-color: #e17055;
+        }
+
+        header {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        h1 {
+            color: #ffffff; 
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        p.subtitle {
+            font-size: 1.2rem;
+            color: #ddd6fe; 
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: rgb(248, 248, 248);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Galeria Interativa */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .photo-card {
+            width: 100%;
+            height: 150px;
+            background-color: #e11d48; 
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white; 
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .photo-card:hover {
+            transform: scale(1.05);
+            background-color: #be123c; 
+        }
+
+        .photo-card span {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        /* Estilização do Cronômetro */
+        .timer-section {
+            background-color: #fff0f3;
+            border: 2px solid #ffbaec;
+            border-radius: 9px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .timer-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #ff7675;
+            margin-bottom: 35px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .counter-display {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        .counter-unit {
+            background: white;
+            padding: 12px 12px;
+            border-radius: 25px;
+            box-shadow: 0 6px 5px rgba(0,0,0,0.05);
+            min-width: 60px;
+        }
+
+        .counter-number {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #d63031; 
+            display: block;
+        }
+
+        /* Botão de Presente */
+        .gift-btn {
+            background-color: #ff7675;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(214, 48, 49, 0.2);
+            transition: background 0.3s, transform 0.2s;
+            animation: shake 3s infinite;
+        }
+
+        .gift-btn:hover {
+            background-color: #d63031;
+            transform: scale(1.05);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            5%, 15%, 25% { transform: rotate(-5deg); }
+            10%, 20%, 30% { transform: rotate(5deg); }
+            35% { transform: rotate(0deg); }
+        }
+
+        /* Texto Romântico Escondido */
+        .romantic-text {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-top: 0;
+            padding: 0 20px;
+            background-color: #fff0f3;
+            border: 1px dashed #ff7675;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #d63031;
+            transition: max-height 0.6s ease, opacity 0.6s ease, margin 0.4s ease, padding 0.4s ease;
+        }
+
+        .romantic-text.show {
+            max-height: 700px;
+            opacity: 1;
+            margin-top: 25px;
+            padding: 20px;
+        }
+
+        /* Estilização das Janelas (Modais) */
+        .modal {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: slideUp 0.4s ease-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: #b2bec3;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #d63031;
+        }
+
+        /* MODIFICADO: Estilização adaptada para a tag de vídeo */
+        .modal-video {
+            width: 100%;
+            height: 250px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background-color: #ffeef2;
+            object-fit: cover;
+        }
+
+        .modal-date {
+            font-size: 0.9rem;
+            color: #ff7675;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .modal-text {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: #4a4a4a;
+        }
+
+        footer {
+            margin-top: auto;
+            color: #cbd5e1; 
+            font-size: 0.9rem;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="audio-player">
+        <button id="play-pause-btn" class="audio-btn" onclick="toggleAudio()">Tocar Música 🎵</button>você tem um gosto musical interessante
+        <audio id="bg-music" src="minha_musica.mp4" loop></audio>
+    </div>
+
+    <header>
+        <h1>Feliz Dia dos Namorados! ❤️</h1>
+        <p class="subtitle">Clique em cada caixinha e veja algo especial que fiz para você</p>
+    </header>
+
+    <div class="container">
+        <p class="message">
+            Cada momento ao seu lado é especial. Escrevi esta página para lembrar o quanto você é importante para mim e como eu te Amo!.
+        </p>
+
+        <div class="gallery">
+            <div class="photo-card" onclick="abrirModal('modal-primeira-foto')">
+                <span>💜</span> minha pessoa favorita
+            </div>
+            <div class="photo-card" onclick="abrirModal('modal-lugar-favorito')">
+                <span>💜</span> Meu desenho favorito
+            </div>
+            <div class="photo-card" onclick="abrirModal('modal-dia-divertido')">
+                <span>💜</span> Meu sorriso favorito
+            </div>
+            <div class="photo-card" onclick="abrirModal('modal-momento-favorito')">
+                <span>💜</span> Meu pensamento favorito
+            </div>
+        </div>
+
+        <div class="timer-section">
+            <div class="timer-title">Tempo que estamos juntos amor:</div>
+            <div class="counter-display">
+                <div class="counter-unit"><span id="anos" class="counter-number">00</span>Anos</div>
+                <div class="counter-unit"><span id="meses" class="counter-number">00</span>Meses</div>
+                <div class="counter-unit"><span id="horas" class="counter-number">00</span>Horas</div>
+                <div class="counter-unit"><span id="minutos" class="counter-number">00</span>Min</div>
+                <div class="counter-unit"><span id="segundos" class="counter-number">00</span>Seg</div>
+            </div>
+        </div>
+
+        <button class="gift-btn" onclick="revelarTextoRomantico()">Abrir Presente 🎁</button>
+
+        <div id="texto-romantico" class="romantic-text">
+            "Sei que o tempo passa  voando, mas cada segundo contigo me faz perceber a sorte que tenho de te ter por perto. Infelizmente não  poderemos passar esse dia juntos, mas isso não muda o fato de eu te amar de mais, você é incrível e eu agradeço muito por ter você na minha vida, obrigado por ser essa pessoa maravilhosa  que sempre se esforça pra me deixar feliz, obrigado por sempre me motivar e por sempre eu poder contar com você pra tudo, vc é minha outra metade e n vivo mais sem você ,  eu preciso de você mais do que preciso respirar .EU TE AMO A VIDA TODA MINHA KOALINHA❤️!" 🌹✨
+        </div>
+    </div>
+
+    <div id="modal-primeira-foto" class="modal" onclick="fecharModalDeFora(event, 'modal-primeira-foto')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharModal('modal-primeira-foto')">&times;</span>
+            <video class="modal-video" src="koalinha.mp4" controls></video>
+            <div class="modal-date">📅 03/02/2025</div>
+            <h3>Minha Pessoa favorita</h3>
+            <p class="modal-text">
+                "Você é a minha pessoa favorita, eu sempre irei escolher você, acordarei todos os dias amando a mesma mulher, a mulher que ganhou meu coração, O meu lugar favorito no mundo inteiro vai ser sempre estar com você."
+            </p>
+        </div>
+    </div>
+
+    <div id="modal-lugar-favorito" class="modal" onclick="fecharModalDeFora(event, 'modal-lugar-favorito')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharModal('modal-lugar-favorito')">&times;</span>
+            <video class="modal-video" src="arte.mp4" controls></video>
+            <div class="modal-date">📍 [Coloque o Local Aqui]</div>
+            <h3>Meu desenho favorito</h3>
+            <p class="modal-text">
+                "Durmo todos os dias  olhando para você e me orgulhando de ter uma pessoa tão maravilhosa do meu lado, você e a arte mais bela que já vi e eu amo arte, um desenho que eu nunca conseguirei copiar e morrerei admirando!"
+            </p>
+        </div>
+    </div>
+
+    <div id="modal-dia-divertido" class="modal" onclick="fecharModalDeFora(event, 'modal-dia-divertido')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharModal('modal-dia-divertido')">&times;</span>
+            <video class="modal-video" src="sorriso.mp4" controls></video>
+            <div class="modal-date">📅 [Coloque a Data Aqui]</div>
+            <h3>meu sorriso favorito</h3>
+            <p class="modal-text">
+                "Amo como a gente consegue dar risada de absolutamente tudo. Esse dia foi a prova de que até a rotina mais simples vira uma aventura inesquecível contigo.Seu rosto é a coisa mais linda que já vi, estar com você é a melhor coisa que já me aconteceu, eu confio em você mais que tudo seu sorriso lindo nunca sairá da minha cabeça e acordarei todos os dias para te fazer sorrir de novo!"
+            </p>
+        </div>
+    </div>
+
+    <div id="modal-momento-favorito" class="modal" onclick="fecharModalDeFora(event, 'modal-momento-favorito')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="fecharModal('modal-momento-favorito')">&times;</span>
+            <video class="modal-video" src="coala.mp4" controls></video>
+            <div class="modal-date">❤️ Nosso Destino</div>
+            <h3>Meu pensamento favorito</h3>
+            <p class="modal-text">
+                "Você é a primeira coisa q vem na minha cabeça todos os dias, eu n paro de pensar em você kakak, eu amo muito você e não imagina mais uma vida sem você do meu lado, amo cada detalhe em você você me faz ser uma pessoa muito melhor."
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        Feito com ❤️ por [Seu Nome]
+    </footer>
+
+    <script>
+        const dataInicio = new Date(2025, 1, 3, 0, 0, 0); 
+
+        function atualizarCronometro() {
+            const agora = new Date();
+            
+            let anos = agora.getFullYear() - dataInicio.getFullYear();
+            let meses = agora.getMonth() - dataInicio.getMonth();
+            
+            if (meses < 0 || (meses === 0 && agora.getDate() < dataInicio.getDate())) {
+                anos--;
+                meses += 12;
+            }
+            
+            let dataUltimoMesversario = new Date(dataInicio.getTime());
+            dataUltimoMesversario.setFullYear(dataInicio.getFullYear() + anos);
+            dataUltimoMesversario.setMonth(dataInicio.getMonth() + meses);
+            
+            if (agora < dataUltimoMesversario) {
+                meses--;
+                if (meses < 0) {
+                    meses = 11;
+                    anos--;
+                }
+                dataUltimoMesversario = new Date(dataInicio.getTime());
+                dataUltimoMesversario.setFullYear(dataInicio.getFullYear() + anos);
+                dataUltimoMesversario.setMonth(dataInicio.getMonth() + meses);
+            }
+
+            const diferencaMili = agora - dataUltimoMesversario;
+
+            const umSegundo = 1000;
+            const umMinuto = umSegundo * 60;
+            const umaHora = umMinuto * 60;
+
+            const horas = Math.floor(diferencaMili / umaHora);
+            const minutos = Math.floor((diferencaMili % umaHora) / umMinuto);
+            const segundos = Math.floor((diferencaMili % umMinuto) / umSegundo);
+
+            document.getElementById('anos').textContent = String(anos).padStart(2, '0');
+            document.getElementById('meses').textContent = String(meses).padStart(2, '0');
+            document.getElementById('horas').textContent = String(horas).padStart(2, '0');
+            document.getElementById('minutos').textContent = String(minutos).padStart(2, '0');
+            document.getElementById('segundos').textContent = String(segundos).padStart(2, '0');
+        }
+
+        setInterval(atualizarCronometro, 1000);
+        atualizarCronometro();
+
+        const musica = document.getElementById('bg-music');
+        const botaoMusica = document.getElementById('play-pause-btn');
+
+        function toggleAudio() {
+            if (musica.paused) {
+                musica.play();
+                botaoMusica.textContent = "Pausar Música ⏸️";
+            } else {
+                musica.pause();
+                botaoMusica.textContent = "Tocar Música 🎵";
+            }
+        }
+
+        function revelarTextoRomantico() {
+            const texto = document.getElementById('texto-romantico');
+            texto.classList.toggle('show');
+        }
+
+        function abrirModal(idModal) {
+            document.getElementById(idModal).style.display = "flex";
+        }
+
+        // MODIFICADO: Função de fechar agora também pausa o vídeo de dentro da janela
+        function fecharModal(idModal) {
+            const modal = document.getElementById(idModal);
+            modal.style.display = "none";
+            const video = modal.querySelector('video');
+            if (video) {
+                video.pause();
+            }
+        }
+
+        function fecharModalDeFora(event, idModal) {
+            if (event.target === document.getElementById(idModal)) {
+                fecharModal(idModal);
+            }
+        }
+    </script>
+
+</body>
+</html>
